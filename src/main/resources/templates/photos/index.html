@@ -30,16 +30,18 @@
                     <thead class="table-light">
                     <tr>
                         <th>id</th>
-                        <th>Titolo</th>
                         <th>Anteprima</th>
+                        <th>Titolo</th>
+                        <th>Descrizione</th>
                         <th class="d-flex justify-content-center">Operazioni</th>
                     </tr>
                     </thead>
                     <tbody class="table-group-divider">
                     <tr th:each="photo : ${photos}" th:object="${photo}" class="table-primary">
                         <td th:text="*{id}"></td>
-                        <td th:text="*{title}"></td>
                         <td><img width="80"  th:src="@{*{url}}" alt=""></td>
+                        <td th:text="*{title}"></td>
+                        <td th:text="*{description}"></td>
                         <td>
                             <div class="d-flex justify-content-center">
                                 <a class="btn btn-secondary me-3" th:href="@{|/photos/*{id}|}"><i

@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -37,8 +38,11 @@ public class PhotoController {
     }
     @PostMapping("/create")
     public String store(@Valid @ModelAttribute("photo") Photo formPhoto, Model model, BindingResult bindingResult, RedirectAttributes redirectAttributes){
+        if (!photoService.isValidTitle(formPhoto))
+            bindingResult.addError(new FieldError("image", "title", formPhoto.getTitle(), false, null, null, "il titolo deve essere unico"));
+
         if (bindingResult.hasErrors()){
-            return "/photos/create";
+            return "photos/create";
         }
          photoService.savePhoto(formPhoto);
         redirectAttributes.addFlashAttribute("message", "Foto aggiunta con successo!");
@@ -65,7 +69,7 @@ public class PhotoController {
                 redirectAttributes.addFlashAttribute("message", "Non puoi eliminare!");
             }
         } catch (RuntimeException e) {
-            redirectAttributes.addFlashAttribute("message", "Pizza non trovata!");
+            redirectAttributes.addFlashAttribute("message", "Errore 404!");
         }
         return "redirect:/photos";
     }

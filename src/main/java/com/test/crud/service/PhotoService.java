@@ -24,6 +24,12 @@ public class PhotoService {
         newPhoto.setUrl(formPhoto.getUrl());
         return photoRepository.save(newPhoto);
     }
+    public boolean isValidTitle(Photo formPhoto){
+        if(formPhoto.getId() == null){
+            return !photoRepository.existsByTitle(formPhoto.getTitle());
+        }
+        return !photoRepository.existsByTitleAndIdNot(formPhoto.getTitle(), formPhoto.getId());
+    }
 
     public boolean deleteById(Integer id) throws RuntimeException {
         try {
