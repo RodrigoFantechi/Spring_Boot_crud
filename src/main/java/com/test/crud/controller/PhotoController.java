@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
 
@@ -35,12 +36,13 @@ public class PhotoController {
         return "photos/create";
     }
     @PostMapping("/create")
-    public String store (@Valid @ModelAttribute("photo") Photo formPhoto, Model model, BindingResult bindingResult){
+    public String store(@Valid @ModelAttribute("photo") Photo formPhoto, Model model, BindingResult bindingResult, RedirectAttributes redirectAttributes){
         if (bindingResult.hasErrors()){
-            return "photos/create";
+            return "/photos/create";
         }
          photoService.savePhoto(formPhoto);
-        return "redirect: /photos";
+        redirectAttributes.addFlashAttribute("message", "Foto aggiunta con successo!");
+        return "redirect:/photos";
     }
 
     @GetMapping("/edit/{id}")
@@ -50,11 +52,22 @@ public class PhotoController {
 
     @PostMapping("/edit/{id}")
     public String update(){
-        return "redirect: /photos";
+        return "redirect:/photos";
     }
+
     @GetMapping("delete/{id}")
-    public String delete (){
-        return "redirect: /photos";
+    public String delete (@PathVariable Integer id, RedirectAttributes redirectAttributes){
+        try {
+            boolean success = photoService.deleteById(id);
+            if (success)
+                redirectAttributes.addFlashAttribute("message", "Foto eliminata!");
+            else {
+                redirectAttributes.addFlashAttribute("message", "Non puoi eliminare!");
+            }
+        } catch (RuntimeException e) {
+            redirectAttributes.addFlashAttribute("message", "Pizza non trovata!");
+        }
+        return "redirect:/photos";
     }
 
 }

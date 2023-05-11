@@ -24,4 +24,13 @@ public class PhotoService {
         newPhoto.setUrl(formPhoto.getUrl());
         return photoRepository.save(newPhoto);
     }
+
+    public boolean deleteById(Integer id) throws RuntimeException {
+        try {
+            photoRepository.deleteById(id);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
 }

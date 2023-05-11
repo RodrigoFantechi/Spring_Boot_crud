@@ -1,4 +1,10 @@
+@import url('https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wght@0,700;1,400&display=swap');
 
+body{
+font-family: 'Instrument Sans', sans-serif;
+}
+
+/*****************************************/
       .bd-placeholder-img {
         font-size: 1.125rem;
         text-anchor: middle;

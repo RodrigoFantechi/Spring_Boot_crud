@@ -4,17 +4,72 @@
     <div th:replace="~{fragments/head :: head}"></div>
 
 </head>
+
+
 <body>
 <div th:replace="~{fragments/header :: header}"></div>
 
 <div class="container-fluid">
     <div class="row">
-
         <div th:replace="~{fragments/sidebar :: sidebar}"></div>
 
-        <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+        <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4 py-5">
+
+            <a class="btn btn-primary" th:href="@{/photos}" role="button"><i
+                    class="fas fa-angle-left fa-fw"></i></a>
+
+            <h1 class="my-3">Add a new photo</h1>
+
+            <form th:object="${photo}" th:action="@{/photos/create}" method="post" class="card p-3">
+
+                <ul class="text-danger">
+                    <li
+                            th:each="err : ${#fields.allErrors()}"
+                            th:text="${err}">
+                    </li>
+                </ul>
+                <!--  SEPARATORE -->
+
+                <div class="mb-3">
+                    <label for="title" class="form-label">Name<strong class="text-danger">*</strong></label>
+                    <input type="text" class="form-control" id="title" th:field="*{title}" th:errorClass="is-invalid">
+                    <!--MESSAGGIO ERRORI-->
+                    <ul class="invalid-feedback" th:if="${#fields.hasErrors('title')}">
+                        <li th:each="err : ${#fields.errors('title')}" th:text="${err}"></li>
+                    </ul>
+                </div>
 
 
+                <!-- SEPARATORE -->
+
+                <div class="mb-3">
+                    <label for="description" class="form-label">Description<strong
+                            class="text-danger">*</strong></label>
+                    <textarea type="text" class="form-control" rows="3" id="description" th:field="*{description}"
+                              th:errorClass="is-invalid"></textarea>
+                    <!--MESSAGGIO ERRORI-->
+                    <ul class="invalid-feedback" th:if="${#fields.hasErrors('description')}">
+                        <li th:each="err : ${#fields.errors('description')}" th:text="${err}"></li>
+                    </ul>
+                </div>
+
+
+                <!-- SEPARATORE -->
+
+
+                <div class="mb-3">
+                    <label class="form-label" for="url">Url<strong class="text-danger">*</strong></label>
+                    <input type="text" class="form-control" id="url" th:field="*{url}" th:errorClass="is-invalid">
+                    <!--MESSAGGIO ERRORI-->
+                    <ul class="invalid-feedback" th:if="${#fields.hasErrors('url')}">
+                        <li th:each="err : ${#fields.errors('url')}" th:text="${err}"></li>
+                    </ul>
+                </div>
+
+
+                <button type="submit" class="btn btn-primary">Submit</button>
+
+            </form>
 
 
         </main>

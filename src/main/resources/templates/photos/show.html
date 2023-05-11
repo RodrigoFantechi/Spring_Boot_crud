@@ -12,11 +12,23 @@
 
         <div th:replace="~{fragments/sidebar :: sidebar}"></div>
 
-        <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+        <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4" th:object="${photo}">
 
 
-            <h1 class="text-center my-5 fs-italic">Sei Loggato!</h1>
+            <div class="container d-flex align-item-center pt-5 flex-wrap">
+                <div class="col-12 mb-5">  <a class="btn btn-primary" th:href="@{/photos}" role="button"><i
+                        class="fas fa-angle-left fa-fw"></i></a></div>
 
+                <div class="px-5 col-6 pt-5">
+                    <img th:src="@{*{url}}" alt="">
+
+                </div>
+                <div class="col-6 pt-5">
+                    <a class="btn btn-primary mb-3" th:href="@{|/photos/edit/*{id}|}"><i class="fa-solid fa-pencil"></i></a>
+                    <h2 class="text-capitalize" th:text="*{title}"></h2>
+                    <h6 th:text=" *{description}"></h6>
+                </div>
+            </div>
         </main>
 
     </div>
