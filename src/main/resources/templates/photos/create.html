@@ -21,7 +21,6 @@
 
             <form th:object="${photo}" th:action="@{/photos/create}" method="post" class="card p-3">
 
-
                 <!--  SEPARATORE -->
 
                 <div class="mb-3">
@@ -32,7 +31,6 @@
                         <li th:each="err : ${#fields.errors('title')}" th:text="${err}"></li>
                     </ul>
                 </div>
-
 
                 <!-- SEPARATORE -->
 
@@ -47,9 +45,7 @@
                     </ul>
                 </div>
 
-
                 <!-- SEPARATORE -->
-
 
                 <div class="mb-3">
                     <label class="form-label" for="url">Url<strong class="text-danger">*</strong></label>

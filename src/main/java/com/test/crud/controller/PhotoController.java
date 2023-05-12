@@ -37,7 +37,7 @@ public class PhotoController {
         return "photos/create";
     }
     @PostMapping("/create")
-    public String store(@Valid @ModelAttribute("photo") Photo formPhoto, Model model, BindingResult bindingResult, RedirectAttributes redirectAttributes){
+    public String store( Model model, @Valid @ModelAttribute("photo") Photo formPhoto, BindingResult bindingResult, RedirectAttributes redirectAttributes){
         if (!photoService.isValidTitle(formPhoto))
             bindingResult.addError(new FieldError("image", "title", formPhoto.getTitle(), false, null, null, "il titolo deve essere unico"));
 
