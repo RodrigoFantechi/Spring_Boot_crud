@@ -30,6 +30,14 @@ public class PhotoService {
         }
         return !photoRepository.existsByTitleAndIdNot(formPhoto.getTitle(), formPhoto.getId());
     }
+    public Photo updatePhoto(Photo formPhoto, Integer id) throws RuntimeException {
+        Photo photoToUpdate = getById(id);
+        photoToUpdate.setId(formPhoto.getId());
+        photoToUpdate.setTitle(formPhoto.getTitle());
+        photoToUpdate.setDescription(formPhoto.getDescription());
+        photoToUpdate.setUrl(formPhoto.getUrl());
+        return photoRepository.save(photoToUpdate);
+    }
 
     public boolean deleteById(Integer id) throws RuntimeException {
         try {
