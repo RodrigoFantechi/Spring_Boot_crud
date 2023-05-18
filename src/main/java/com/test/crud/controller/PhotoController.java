@@ -64,7 +64,7 @@ public class PhotoController {
     }
 
     @PostMapping("/edit/{id}")
-    public String update(@Valid @ModelAttribute("image") Photo formPhoto, BindingResult bindingResult, @PathVariable Integer id, RedirectAttributes redirectAttributes){
+    public String update(@Valid @ModelAttribute("photo") Photo formPhoto, BindingResult bindingResult, @PathVariable Integer id, RedirectAttributes redirectAttributes){
 
         if (!photoService.isValidTitle(formPhoto))
             bindingResult.addError(new FieldError("photo", "title", formPhoto.getTitle(), false, null, null, "il titolo deve essere unico"));
